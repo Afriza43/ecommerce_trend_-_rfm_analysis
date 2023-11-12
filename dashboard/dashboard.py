@@ -20,7 +20,7 @@ def create_trend_order(df):
 
 
 all_df = pd.read_csv(
-    'dashboard\semua_data.csv')
+    'semua_data.csv')
 
 datetime_columns = ["order_purchase_timestamp"]
 all_df.sort_values(by="order_purchase_timestamp", inplace=True)
