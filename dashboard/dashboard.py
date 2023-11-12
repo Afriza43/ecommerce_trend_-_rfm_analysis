@@ -19,7 +19,7 @@ def create_trend_order(df):
     return trend_order
 
 
-all_df = pd.read_csv('semua_data.csv')
+all_df = pd.read_csv("semua_data.csv")
 
 
 datetime_columns = ["order_purchase_timestamp"]
