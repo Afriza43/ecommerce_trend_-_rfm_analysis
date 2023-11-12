@@ -19,8 +19,8 @@ def create_trend_order(df):
     return trend_order
 
 
-all_df = pd.read_csv(
-    'semua_data.csv')
+all_df = pd.read_csv('semua_data.csv')
+
 
 datetime_columns = ["order_purchase_timestamp"]
 all_df.sort_values(by="order_purchase_timestamp", inplace=True)
@@ -37,8 +37,8 @@ max_date = all_df["order_purchase_timestamp"].max()
 st.header('Brazilian E-Commerce Dashboard')
 st.subheader('Monthly Orders')
 
-main_df = all_df[(all_df["order_purchase_timestamp"] >= str(min_date)) &
-                 (all_df["order_purchase_timestamp"] <= str(max_date))]
+main_df = all_df[(all_df["order_purchase_timestamp"] >= str(min_date)) & (
+    all_df["order_purchase_timestamp"] <= str(max_date))]
 
 trend_order = create_trend_order(main_df)
 
@@ -66,8 +66,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     recently = all_df.order_purchase_timestamp.dt.date.max().strftime("%d-%m-%Y")
-    st.metric("Recently Order",
-              value=recently)
+    st.metric("Recently Order", value=recently)
 
 with col2:
     st.metric("Most Frequency", value=all_df.Frequency.max())
