@@ -20,7 +20,7 @@ def create_trend_order(df):
 
 
 all_df = pd.read_csv(
-    '/mount/src/ecommerce_trend_-_rfm_analysis/dashboard/semua_data.csv')
+    'semua_data.csv')
 
 
 datetime_columns = ["order_purchase_timestamp"]
@@ -78,7 +78,7 @@ with col3:
 
 fig, ax = plt.subplots(figsize=(16, 8))
 sns.countplot(x="Segment", data=all_df,
-              order=all_df['Segment'].value_counts().index, hue="Segment")
+              order=all_df['Segment'].value_counts().index)
 
 for p in ax.patches:
     height = p.get_height()
