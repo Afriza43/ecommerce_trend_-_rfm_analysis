@@ -35,6 +35,14 @@ min_date = all_df["order_purchase_timestamp"].min()
 max_date = all_df["order_purchase_timestamp"].max()
 
 # Tampilkan widget untuk memilih tanggal awal
+
+
+st.header('Brazilian E-Commerce Dashboard')
+st.subheader('Monthly Orders')
+
+main_df = all_df[(all_df["order_purchase_timestamp"] >= str(start_date)) & (
+    all_df["order_purchase_timestamp"] <= str(end_date))]
+
 start_date = st.date_input(
     "Pilih Tanggal Awal", min_value=min_date, max_value=max_date, value=min_date)
 
@@ -53,12 +61,6 @@ elif start_date > end_date:
 # Validasi untuk memastikan tanggal awal tidak melebihi tanggal akhir
 elif end_date < start_date:
     st.error("Tanggal awal harus sebelum tanggal akhir.")
-
-st.header('Brazilian E-Commerce Dashboard')
-st.subheader('Monthly Orders')
-
-main_df = all_df[(all_df["order_purchase_timestamp"] >= str(start_date)) & (
-    all_df["order_purchase_timestamp"] <= str(end_date))]
 
 trend_order = create_trend_order(main_df)
 
