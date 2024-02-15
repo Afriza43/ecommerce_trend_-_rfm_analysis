@@ -34,11 +34,25 @@ for column in datetime_columns:
 min_date = all_df["order_purchase_timestamp"].min()
 max_date = all_df["order_purchase_timestamp"].max()
 
-start_date, end_date = st.date_input(
-    label='Rentang Waktu', min_value=min_date,
-    max_value=max_date,
-    value=[min_date, max_date]
-)
+# Tampilkan widget untuk memilih tanggal awal
+start_date = st.date_input(
+    "Pilih Tanggal Awal", min_value=min_date, max_value=max_date, value=min_date)
+
+# Tampilkan widget untuk memilih tanggal akhir
+end_date = st.date_input(
+    "Pilih Tanggal Akhir", min_value=min_date, max_value=max_date, value=max_date)
+
+# Validasi untuk memastikan tidak ada tanggal yang kosong
+if start_date is None or end_date is None:
+    st.error("Silakan pilih tanggal awal dan tanggal akhir.")
+
+# Validasi untuk memastikan tanggal akhir tidak kurang dari tanggal awal
+elif start_date > end_date:
+    st.error("Tanggal akhir harus setelah tanggal awal.")
+
+# Validasi untuk memastikan tanggal awal tidak melebihi tanggal akhir
+elif end_date < start_date:
+    st.error("Tanggal awal harus sebelum tanggal akhir.")
 
 st.header('Brazilian E-Commerce Dashboard')
 st.subheader('Monthly Orders')
