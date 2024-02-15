@@ -20,7 +20,7 @@ def create_trend_order(df):
 
 
 all_df = pd.read_csv(
-    'semua_data.csv')
+    'dashboard/semua_data.csv')
 
 
 datetime_columns = ["order_purchase_timestamp"]
@@ -43,21 +43,32 @@ main_df = all_df[(all_df["order_purchase_timestamp"] >= str(min_date)) & (
 
 trend_order = create_trend_order(main_df)
 
+# Filter tanggal menggunakan widget date_input
+start_date = st.date_input(
+    "Pilih Tanggal Awal", min_value=min_date, max_value=max_date, value=min_date)
+end_date = st.date_input(
+    "Pilih Tanggal Akhir", min_value=min_date, max_value=max_date, value=max_date)
+
+# Filter data berdasarkan rentang tanggal yang dipilih
+filtered_df = main_df[(main_df["order_purchase_timestamp"] >= start_date) & (
+    main_df["order_purchase_timestamp"] <= end_date)]
+
+# Membuat ulang grafik dengan data yang telah difilter
+filtered_trend_order = create_trend_order(filtered_df)
 
 fig, ax = plt.subplots(figsize=(16, 8))
 ax.plot(
-    trend_order["order_purchase_timestamp"],
-    trend_order["order_count"],
+    filtered_trend_order["order_purchase_timestamp"],
+    filtered_trend_order["order_count"],
     marker='o',
     linewidth=2,
     color="#90CAF9"
 )
 ax.tick_params(axis='y', labelsize=20)
 ax.tick_params(axis='x', labelsize=15)
-ax.set_xlabel("Month", fontsize=15)
-ax.set_ylabel("Order Count", fontsize=15)
-ax.set_title("Order Trend", fontsize=30)
-
+ax.set_xlabel("Bulan", fontsize=15)
+ax.set_ylabel("Jumlah Pesanan", fontsize=15)
+ax.set_title("Tren Pesanan", fontsize=30)
 
 st.pyplot(fig)
 
