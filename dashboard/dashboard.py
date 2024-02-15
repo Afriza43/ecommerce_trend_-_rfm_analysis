@@ -40,15 +40,15 @@ max_date = all_df["order_purchase_timestamp"].max()
 st.header('Brazilian E-Commerce Dashboard')
 st.subheader('Monthly Orders')
 
-main_df = all_df[(all_df["order_purchase_timestamp"] >= str(start_date)) & (
-    all_df["order_purchase_timestamp"] <= str(end_date))]
-
 start_date = st.date_input(
     "Pilih Tanggal Awal", min_value=min_date, max_value=max_date, value=min_date)
 
 # Tampilkan widget untuk memilih tanggal akhir
 end_date = st.date_input(
     "Pilih Tanggal Akhir", min_value=min_date, max_value=max_date, value=max_date)
+
+main_df = all_df[(all_df["order_purchase_timestamp"] >= str(start_date)) & (
+    all_df["order_purchase_timestamp"] <= str(end_date))]
 
 # Validasi untuk memastikan tidak ada tanggal yang kosong
 if start_date is None or end_date is None:
