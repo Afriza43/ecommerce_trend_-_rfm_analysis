@@ -101,7 +101,7 @@ sns.countplot(x="Segment", data=all_df,
 
 for p in ax.patches:
     height = p.get_height()
-    ax.text(p.get_x() + p.get_width() / 2., height + 5,
+    ax.text(p.get_x() + p.get_width() / 2., height + 10,
             f'{height}',
             ha="center", fontsize=20)
 
